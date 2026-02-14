@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Movie Recommendation System</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-4">🎬 Movie Recommendation System</h2>
+        <p class="text-muted text-center">
+            Model RMSE: <strong>{{ rmse }}</strong>
+        </p>
+
+        <ul class="nav nav-tabs mb-4" id="recommenderTabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#userTab">Existing User</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#favoritesTab">Favorites-Based</button>
+            </li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Existing User -->
+<!-- Existing User -->
+<div class="tab-pane fade show active" id="userTab">
+    <form method="POST" action="/recommend">
+        <input type="hidden" name="mode" value="user">
+
+        <div class="mb-3">
+            <label class="form-label">User Profile ID</label>
+            <input type="number" name="user_id" class="form-control" value="1">
+            <div class="form-text">
+                Enter the profile ID from the MovieLens dataset.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">User Name (Optional)</label>
+            <input type="text" name="user_name" class="form-control" placeholder="e.g., Avi">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">How many recommendations would you like?</label>
+            <input type="number" name="top_n" class="form-control" value="10">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            Generate Personalized Recommendations
+        </button>
+    </form>
+</div>
+
+
+            <!-- Favorites-Based -->
+            <div class="tab-pane fade" id="favoritesTab">
+                <form method="POST" action="/recommend">
+                    <input type="hidden" name="mode" value="favorites">
+                    <div class="mb-3">
+                        <label class="form-label">Favorite Movies (One Per Line)</label>
+                        <textarea name="favorites" class="form-control" rows="5">Toy Story (1995)
+GoldenEye (1995)</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Top N</label>
+                        <input type="number" name="top_n" class="form-control" value="10">
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">
+                        Generate Recommendations
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
